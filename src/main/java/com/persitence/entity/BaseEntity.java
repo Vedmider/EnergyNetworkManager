@@ -2,21 +2,25 @@ package com.persitence.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @MappedSuperclass
 public abstract class BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     @Column(unique = true, nullable = false)
-    protected Integer id;
+    protected String id;
     @NotNull
     @Column
     protected String name;
     @Column
     protected String description;
-    @Column
-    protected Map params;
+    @ElementCollection
+    @CollectionTable(name = "params", joinColumns = @JoinColumn(name = "entity_id"))
+    @MapKeyColumn(name = "key")
+    protected Map<String, String> params;
 
     public String getName() {
         return name;
@@ -42,15 +46,19 @@ public abstract class BaseEntity {
         this.params = params;
     }
 
-    public int getEntityId() {
+    public String getEntityId() {
         return id;
     }
 
-    public void setEntityId(int id) {
+    public void setEntityId(String id) {
         this.id = id;
     }
 
     public abstract NodeType getNodeType();
+
+    public abstract List<? extends BaseEntity> getChildrenNodes();
+
+    public abstract void setChildrenNodes(List<? extends  BaseEntity> childrenNodes);
 
     @Override
     public boolean equals(Object obj) {
@@ -69,7 +77,7 @@ public abstract class BaseEntity {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + id;
+        result = prime * result + id.hashCode();
         return result;
     }
 

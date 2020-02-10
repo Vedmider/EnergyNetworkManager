@@ -4,13 +4,14 @@ import com.persitence.entity.BaseEntity;
 import com.persitence.repository.CommonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
 import java.util.Optional;
 
 public abstract class AbstractService<E extends BaseEntity, R extends CommonRepository<E>>
         implements CommonService<E> {
     protected final R repository;
 
-    @Autowired
+
     protected AbstractService(R repository) {
         this.repository = repository;
     }
@@ -27,6 +28,8 @@ public abstract class AbstractService<E extends BaseEntity, R extends CommonRepo
         return repository.findById(id);
     }
 
-
+    public List<E> getAll(){
+        return  repository.findAll();
+    }
 
 }

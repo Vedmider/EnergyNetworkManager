@@ -1,6 +1,7 @@
 package com.persitence.entity;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -8,17 +9,17 @@ public class NetworkNode extends BaseEntity {
     @Column
     private NodeType nodeType = NodeType.NETWORK;
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<SubstationNode> childrenNodes;
+    private List<SubstationNode> childrenNodes;
     @Override
     public NodeType getNodeType() {
         return nodeType;
     }
 
-    public Set<SubstationNode> getChildrenNodes() {
+    public List<SubstationNode> getChildrenNodes() {
         return childrenNodes;
     }
-
-    public void setChildrenNodes(Set<SubstationNode> childrenNodes) {
-        this.childrenNodes = childrenNodes;
+    @Override
+    public void setChildrenNodes(List<? extends BaseEntity> childrenNodes) {
+        this.childrenNodes = (List<SubstationNode>) childrenNodes;
     }
 }

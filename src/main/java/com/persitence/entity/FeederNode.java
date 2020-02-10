@@ -1,24 +1,25 @@
 package com.persitence.entity;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 public class FeederNode extends BaseEntity {
     @Column
     private NodeType nodeType = NodeType.FEEDER;
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<ResourceNode> childrenNodes;
+    private List<ResourceNode> childrenNodes;
     @Override
     public NodeType getNodeType() {
         return nodeType;
     }
 
-    public Set<ResourceNode> getChildrenNodes() {
+    public List<ResourceNode> getChildrenNodes() {
         return childrenNodes;
     }
-
-    public void setChildrenNodes(Set<ResourceNode> childrenNodes) {
-        this.childrenNodes = childrenNodes;
+    @Override
+    public void setChildrenNodes(List<? extends BaseEntity> childrenNodes) {
+        this.childrenNodes = (List<ResourceNode>) childrenNodes;
     }
+
 }

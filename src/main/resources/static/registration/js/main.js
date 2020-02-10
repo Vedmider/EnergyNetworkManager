@@ -23,11 +23,14 @@ $(document).ready(function () {
         let login = $('#login').val();
         let password = $('#password').val();
         let email = $('#email').val();
+        let first_name = $('#first-name').val();
+        let last_name = $('#last-name').val();
 
         $.ajax({
             type: "POST",
+            contentType: "application/json",
             url: "registration",
-            data: {"login": login, "password": password, "email": email},
+            data: JSON.stringify({"login": login, "password": password, "email": email, "first_name": first_name, "last_name": last_name}),
             success: function (data) {
                 console.log(data);
                 if (data.success) {
