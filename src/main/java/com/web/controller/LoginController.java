@@ -33,11 +33,13 @@ public class LoginController {
 
     @GetMapping(value = SLASH_LOGIN)
     public String getLoginPage() {
+        LOG.debug("Getting login page");
         return "login";
     }
 
     @PostMapping(value = SLASH_LOGIN)
     public String performLogin(@RequestParam Map<String, String> params, HttpSession session, ModelMap modelMap){
+        LOG.debug("Trying to preform login");
         String login = params.get("login");
         String password = params.get("password");
         Optional<User> user = userService.validateUser(login, password);

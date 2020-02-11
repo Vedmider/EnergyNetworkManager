@@ -42,7 +42,7 @@
     <div class="wrap-table100">
         <c:if test="${networks != null}">
             <div class="wrap-table100">
-                <h3>Conferences</h3>
+                <h3>Nodes</h3>
                 <div class="table">
                     <div class="row header">
                         <div class="cell">

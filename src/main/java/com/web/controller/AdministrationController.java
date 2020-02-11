@@ -1,6 +1,8 @@
 package com.web.controller;
 
 import com.services.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 public class AdministrationController {
+    private static final Logger LOG = LoggerFactory.getLogger(AdministrationController.class);
     private NetworkService networkService;
     private SubstationService substationService;
     private TransformerService transformerService;
@@ -32,11 +35,12 @@ public class AdministrationController {
 
     @GetMapping(value = {"/administration"})
     public String getAdministrationPage(ModelMap model, HttpSession session) {
-
+        LOG.info("getting administration page");
         if (session.getAttribute("user") != null) {
             model.addAttribute("networks", networkService.getAll());
             return "administration";
         }
+        LOG.warn("There is no user in session. Sending redirect...");
         return "redirect:/";
     }
 }
