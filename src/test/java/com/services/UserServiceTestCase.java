@@ -60,4 +60,31 @@ public class UserServiceTestCase {
         Assert.assertEquals(testUser, actualUser.get());
     }
 
+    @Test
+    public void shouldReturnEmptyOptionalUserAfterValidateUserWithCorrectCredentials(){
+        final String wrongLogin = "wrongLogin";
+        Mockito.when(userRepository.findUserByLoginAndPassword(wrongLogin, PASSWORD))
+                .thenReturn(Optional.empty());
+        Optional<User> actualUser = userService.validateUser(wrongLogin, PASSWORD);
+
+        Assert.assertTrue(actualUser.isEmpty());
+    }
+
+    @Test
+    public void shouldReturnTestUserWhenSearchWithCorrectLogin(){
+        Mockito.when(userRepository.findByLogin(LOGIN))
+                .thenReturn(Optional.of(testUser));
+        Optional<User> actualUser = userService.findByLogin(LOGIN);
+
+        Assert.assertTrue(actualUser.isPresent());
+        Assert.assertEquals(testUser, actualUser.get());
+    }
+
+    @Test
+    public void shouldReturnTrueWhenCorrectLogin(){
+        Mockito.when(userRepository.findByLogin(LOGIN))
+                .thenReturn(Optional.of(testUser));
+        Assert.assertTrue(userService.isExist(LOGIN));
+    }
+
 }
