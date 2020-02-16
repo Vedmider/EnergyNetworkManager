@@ -162,7 +162,7 @@ body{
   <div class="grad">
   </div>
   <div class="header">
-	  <div>Conferences</div>
+	  <div>Energy Network</div>
   </div>
   <br>
   <form class="login" action="${pageContext.request.contextPath}/login" method="post">
