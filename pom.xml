@@ -20,7 +20,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <start-class>com.Application</start-class>
-        <mysql>8.0.17</mysql>
+        <mysql>8.0.28</mysql>
         <servlet.api>3.1.0</servlet.api>
         <junit>4.12</junit>
         <mockito>1.10.19</mockito>
